@@ -16,7 +16,11 @@ class DocumentController {
     }
 
     try {
-      const document = this.documentService.createDocument(req.file);
+      const document = this.documentService.createDocument({
+        originalName: req.file.originalname,
+        size: req.file.size,
+        storageKey: req.file.filename
+      });
       return res.status(201).json(document);
     } catch (error) {
       await fs.unlink(req.file.path).catch(() => {});
