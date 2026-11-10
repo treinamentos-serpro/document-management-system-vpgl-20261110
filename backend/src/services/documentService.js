@@ -6,14 +6,14 @@ class DocumentService {
     this.owner = owner;
   }
 
-  createDocument(file) {
+  createDocument({ originalName, size, storageKey }) {
     return this.documentRepository.create({
       id: randomUUID(),
-      originalName: file.originalname,
-      size: file.size,
+      originalName,
+      size,
       uploadedAt: new Date().toISOString(),
       owner: this.owner
-    }, file.filename);
+    }, storageKey);
   }
 
   listDocuments() {
